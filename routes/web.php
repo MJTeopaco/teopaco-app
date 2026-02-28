@@ -7,9 +7,12 @@ use App\Models\User;
 use App\Services\UserService;
 use Illuminate\Support\Facades\Response;
 use Symfony\Polyfill\Intl\Idn\Resources\unidata\Regex;
+use App\Http\Controllers\ProductController;
+use App\Services\ProductService;
+
 
 Route::get('/', function () {
-    return 'hello world!';
+    return view('welcome', ['name' => 'teopaco-app']);
 });
 
 Route::get('show-users', [UserController::class, 'show']);
@@ -76,4 +79,13 @@ Route::get('/token',function(Request $request){
 
 Route::post('/token',function(Request $request){
     return $request->all();
+});
+
+Route::get('users', [UserController::class, 'index'])->middleware('user-middlware');
+
+Route::resource('products', ProductController::class);
+
+Route::get('/products-list', function (ProductService $productService) {
+    $data['products'] = $productService->listProducts();
+    return view('products.list', $data);
 });
