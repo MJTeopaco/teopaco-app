@@ -1,5 +1,8 @@
-<html>
-    <body>
-        <h1>Welcome to {{ $name }}</h1>
-    </body>
-</html>
+<x-layout>
+    <x-slot name="heading">
+        Welcome to {{ $name }}
+    </x-slot>
+
+    <p>This is the home page of my app.</p>
+    
+</x-layout>
